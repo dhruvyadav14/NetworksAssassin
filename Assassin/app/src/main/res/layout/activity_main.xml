@@ -27,8 +27,8 @@
         android:id="@+id/firstq"
         android:layout_width="187dp"
         android:layout_height="26dp"
-        android:text="Select your mission:"
+        android:text="I would like to:"
         tools:layout_editor_absoluteX="99dp"
-        tools:layout_editor_absoluteY="139dp" />
+        tools:layout_editor_absoluteY="143dp" />
 
 </android.support.constraint.ConstraintLayout>

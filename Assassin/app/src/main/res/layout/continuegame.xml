@@ -30,18 +30,18 @@
             tools:layout_editor_absoluteY="234dp" />
 
         <RadioButton
-            android:id="@+id/killButton"
+            android:id="@+id/targetButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="I made a kill."
+            android:text="Get my target's name."
             tools:layout_editor_absoluteX="85dp"
             tools:layout_editor_absoluteY="290dp" />
 
         <RadioButton
-            android:id="@+id/killedButton"
+            android:id="@+id/deathButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="I was killed."
+            android:text="Report my death."
             tools:layout_editor_absoluteX="85dp"
             tools:layout_editor_absoluteY="331dp" />
 
@@ -49,7 +49,7 @@
             android:id="@+id/secondq"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Enter game ID, name, and status:"
+            android:text="Enter game ID, name, and mission:"
             tools:layout_editor_absoluteX="85dp"
             tools:layout_editor_absoluteY="140dp" />
 
