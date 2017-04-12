@@ -9,26 +9,26 @@
 
     <RadioButton
         android:id="@+id/startButton"
-        android:layout_width="186dp"
-        android:layout_height="56dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="Start a game."
-        tools:layout_editor_absoluteX="72dp"
-        tools:layout_editor_absoluteY="150dp" />
+        tools:layout_editor_absoluteX="99dp"
+        tools:layout_editor_absoluteY="186dp" />
 
     <RadioButton
         android:id="@+id/continueButton"
-        android:layout_width="186dp"
-        android:layout_height="60dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="Continue a game."
-        tools:layout_editor_absoluteX="72dp"
-        tools:layout_editor_absoluteY="225dp" />
+        tools:layout_editor_absoluteX="99dp"
+        tools:layout_editor_absoluteY="239dp" />
 
     <TextView
         android:id="@+id/firstq"
         android:layout_width="187dp"
         android:layout_height="26dp"
         android:text="Select your mission:"
-        tools:layout_editor_absoluteX="72dp"
-        tools:layout_editor_absoluteY="102dp" />
+        tools:layout_editor_absoluteX="99dp"
+        tools:layout_editor_absoluteY="139dp" />
 
 </android.support.constraint.ConstraintLayout>

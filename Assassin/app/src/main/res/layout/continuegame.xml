@@ -1,6 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <EditText
+            android:id="@+id/gameID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="text"
+            android:text="Game ID"
+            tools:layout_editor_absoluteX="85dp"
+            tools:layout_editor_absoluteY="171dp" />
+
+        <EditText
+            android:id="@+id/playerName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Player's name"
+            tools:layout_editor_absoluteX="85dp"
+            tools:layout_editor_absoluteY="234dp" />
+
+        <RadioButton
+            android:id="@+id/killButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="I made a kill."
+            tools:layout_editor_absoluteX="85dp"
+            tools:layout_editor_absoluteY="290dp" />
+
+        <RadioButton
+            android:id="@+id/killedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="I was killed."
+            tools:layout_editor_absoluteX="85dp"
+            tools:layout_editor_absoluteY="331dp" />
+
+        <TextView
+            android:id="@+id/secondq"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Enter game ID, name, and status:"
+            tools:layout_editor_absoluteX="85dp"
+            tools:layout_editor_absoluteY="140dp" />
+
+        <Button
+            android:id="@+id/statusButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Submit"
+            tools:layout_editor_absoluteX="148dp"
+            tools:layout_editor_absoluteY="400dp" />
+
+    </android.support.constraint.ConstraintLayout>
 </LinearLayout>
