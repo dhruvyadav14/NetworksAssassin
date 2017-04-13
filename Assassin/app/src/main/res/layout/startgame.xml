@@ -20,16 +20,16 @@
                 android:ems="10"
                 android:inputType="text"
                 android:text="Game ID"
-                tools:layout_editor_absoluteX="85dp"
-                tools:layout_editor_absoluteY="178dp" />
+                tools:layout_editor_absoluteX="72dp"
+                tools:layout_editor_absoluteY="170dp" />
 
             <TextView
                 android:id="@+id/secondq"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Enter game ID and players' names (separated by commas)"
-                tools:layout_editor_absoluteX="12dp"
-                tools:layout_editor_absoluteY="145dp" />
+                android:text="Enter game ID and players' names (separated by commas)."
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="110dp" />
 
             <EditText
                 android:id="@+id/playerNames"
@@ -39,7 +39,7 @@
                 android:inputType="textMultiLine"
                 android:singleLine="false"
                 android:text="Players' names"
-                tools:layout_editor_absoluteX="85dp"
+                tools:layout_editor_absoluteX="72dp"
                 tools:layout_editor_absoluteY="234dp" />
 
             <Button
@@ -47,8 +47,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Start game"
-                tools:layout_editor_absoluteX="137dp"
-                tools:layout_editor_absoluteY="379dp" />
+                tools:layout_editor_absoluteX="125dp"
+                tools:layout_editor_absoluteY="380dp" />
+
+            <TextView
+                android:id="@+id/secondq_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="(Players' names must be unique)"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="143dp" />
 
         </android.support.constraint.ConstraintLayout>
     </LinearLayout>
