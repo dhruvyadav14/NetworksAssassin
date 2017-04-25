@@ -75,6 +75,5 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == CONTINUE_GAME_REQUEST) {
 
         }
-
     }
 }
