@@ -12,21 +12,22 @@ import java.io.*;
 
 public class MainActivity extends AppCompatActivity {
 
+    /* Values that identify the requests to start or continue a game.
+     */
+    private static final int START_GAME_REQUEST = 1;
+    private static final int CONTINUE_GAME_REQUEST = 2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-        // Initialize the start button
         Button startButton = (Button) findViewById(R.id.startButton);
 
-        // set OnClickListener to download image
-        // from URL via ImageIntentService
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setContentView(R.layout.startgame);
+                startGame(view);
             }
         });
 
@@ -38,8 +39,42 @@ public class MainActivity extends AppCompatActivity {
         continueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setContentView(R.layout.continuegame);
+                continueGame(view);
             }
         });
+    }
+
+    public void startGame(View view) {
+        // Create Intent to start StartGameActivity
+        Intent startGameIntent = new Intent(MainActivity.this, StartGameActivity.class);
+
+        // start DownloadActivity using downloadImageIntent
+        startActivityForResult(startGameIntent, START_GAME_REQUEST);
+    }
+
+    public void continueGame(View view) {
+        // Create Intent to start ContinueGameActivity
+        Intent continueGameIntent = new Intent(MainActivity.this, ContinueGameActivity.class);
+
+        // start DownloadActivity using downloadImageIntent
+        startActivityForResult(continueGameIntent, CONTINUE_GAME_REQUEST);
+    }
+
+    /**
+     * Hook method called back by the Android Activity framework when
+     * an Activity that's been launched exits, giving the requestCode
+     * it was started with, the resultCode it returned, and any
+     * additional data from it.
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == START_GAME_REQUEST) {
+
+        }
+
+        if (requestCode == CONTINUE_GAME_REQUEST) {
+
+        }
+
     }
 }

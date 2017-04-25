@@ -48,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:text="Start game"
                 tools:layout_editor_absoluteX="125dp"
-                tools:layout_editor_absoluteY="380dp" />
+                tools:layout_editor_absoluteY="417dp" />
 
             <TextView
                 android:id="@+id/secondq_2"
