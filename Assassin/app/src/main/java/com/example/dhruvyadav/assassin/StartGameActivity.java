@@ -17,20 +17,15 @@ import java.net.*;
 
 public class StartGameActivity extends AppCompatActivity {
 
+    // port and host IP address
     private static final int port = 8888;
-
     private InetAddress host = null;
 
-    /**
-     * EditText field for entering the desired URL to an image.
-     */
+    // private data fields
     private EditText mGameID;
     private EditText mPlayerNames;
 
-    // instantiate a variable for this activity's request
-    private int myRequest;
-
-    // instantiate a variable for this activity's server command and response
+    // instantiate variables for this activity's server command and response
     private String myCommand;
     private String myResponse;
 

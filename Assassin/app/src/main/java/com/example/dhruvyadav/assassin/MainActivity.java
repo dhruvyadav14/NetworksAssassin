@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+
 import java.net.*;
 import java.io.*;
 
@@ -14,8 +16,8 @@ public class MainActivity extends AppCompatActivity {
 
     /* Values that identify the requests to start or continue a game.
      */
-    private static final int START_GAME_REQUEST = 1;
-    private static final int CONTINUE_GAME_REQUEST = 2;
+    private static final int START_REQUEST = 1;
+    private static final int CONTINUE_REQUEST = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         Intent startGameIntent = new Intent(MainActivity.this, StartGameActivity.class);
 
         // start DownloadActivity using downloadImageIntent
-        startActivityForResult(startGameIntent, START_GAME_REQUEST);
+        startActivityForResult(startGameIntent, START_REQUEST);
     }
 
     public void continueGame(View view) {
@@ -57,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         Intent continueGameIntent = new Intent(MainActivity.this, ContinueGameActivity.class);
 
         // start DownloadActivity using downloadImageIntent
-        startActivityForResult(continueGameIntent, CONTINUE_GAME_REQUEST);
+        startActivityForResult(continueGameIntent, CONTINUE_REQUEST);
     }
 
     /**
@@ -68,12 +70,11 @@ public class MainActivity extends AppCompatActivity {
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == START_GAME_REQUEST) {
+        setContentView(R.layout.activity_main);
+        if (resultCode == RESULT_OK && ((requestCode == START_REQUEST) || (requestCode == CONTINUE_REQUEST))) {
+            TextView response = (TextView) findViewById(R.id.response);
 
-        }
-
-        if (requestCode == CONTINUE_GAME_REQUEST) {
-
+            response.setText(data.getStringExtra("response"));
         }
     }
 }

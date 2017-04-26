@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -22,22 +23,23 @@ import java.net.UnknownHostException;
 
 public class ContinueGameActivity extends AppCompatActivity {
 
+    // port and host IP address
     private static final int port = 8888;
     private InetAddress host = null;
 
-    /**
-     * EditText field for entering the desired URL to an image.
-     */
+    // Private data fields
     private EditText mGameID;
     private EditText mPlayerName;
+    private int mRequestCode;
 
-    // instantiate a variable for this activity's request
-    private int myRequest;
+    // RadioGroup for the two continue options
+    private RadioGroup continueButtons;
 
+    // Request types
     private static final int TARGET_REQUEST = 1;
     private static final int DEATH_REQUEST = 2;
 
-    // instantiate a variable for this activity's server command and response
+    // instantiate variables for this activity's server command and response
     private String myCommand;
     private String myResponse;
 
@@ -53,25 +55,7 @@ public class ContinueGameActivity extends AppCompatActivity {
         // Cache the EditText that holds the player's name
         mPlayerName = (EditText) findViewById(R.id.playerName);
 
-        // Initialize the target button
-        Button targetButton = (Button) findViewById(R.id.targetButton);
-
-        targetButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                myRequest = TARGET_REQUEST;
-            }
-        });
-
-        // Initialize the death button
-        Button deathButton = (Button) findViewById(R.id.deathButton);
-
-        deathButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                myRequest = DEATH_REQUEST;
-            }
-        });
+        continueButtons = (RadioGroup) findViewById(R.id.continueButtons);
 
         // Initialize the start button
         Button submitButton = (Button) findViewById(R.id.statusButton);
@@ -81,6 +65,13 @@ public class ContinueGameActivity extends AppCompatActivity {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                int selectedId = continueButtons.getCheckedRadioButtonId();
+
+                if(selectedId == R.id.targetButton)
+                    mRequestCode = TARGET_REQUEST;
+                else if(selectedId == R.id.deathButton)
+                    mRequestCode = DEATH_REQUEST;
+
                 new ContinueGameTask();
             }
         });
@@ -91,19 +82,15 @@ public class ContinueGameActivity extends AppCompatActivity {
      * Intent that contains the path to the image file, and then sets this as
      * the result of the Activity.
      */
-    private class ContinueGameTask extends AsyncTask<String, Void, String> {
+    private class ContinueGameTask extends AsyncTask<Void, Void, String> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            if (myRequest == TARGET_REQUEST) {
-                myCommand = "1;" + mGameID + "; " + mPlayerName;
-            } else if (myRequest == DEATH_REQUEST) {
-                myCommand = "2;" + mGameID + "; " + mPlayerName;
-            }
+            myCommand = mRequestCode + "; " + mGameID + "; " + mPlayerName;
         }
 
         @Override
-        protected String doInBackground(String... input) {
+        protected String doInBackground(Void... input) {
             Socket s = null;
             BufferedReader in = null;
             PrintWriter out = null;
