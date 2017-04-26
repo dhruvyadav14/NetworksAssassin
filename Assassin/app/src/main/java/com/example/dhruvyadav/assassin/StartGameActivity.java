@@ -1,7 +1,6 @@
 package com.example.dhruvyadav.assassin;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -10,10 +9,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import java.io.*;
 import java.net.*;
-
-/**
- * Created by lukea on 4/25/2017.
- */
 
 public class StartGameActivity extends AppCompatActivity {
 
@@ -61,24 +56,29 @@ public class StartGameActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            // set command string
             myCommand = "0; " + mGameID + "; " + mPlayerNames;
         }
 
         @Override
         protected String doInBackground(Void... input) {
+            // instantiate socket, reader, and writer
             Socket s = null;
             BufferedReader in = null;
             PrintWriter out = null;
 
             try {
+                // connect to server with host name and IP
                 host = InetAddress.getByName("172.31.21.180");
                 s = new Socket(host, 8888);
 
                 out = new PrintWriter(s.getOutputStream(), true);
                 in = new BufferedReader(new InputStreamReader(s.getInputStream()));
 
+                // send the command to the server
                 out.write(myCommand);
 
+                // wait until the server sends a response
                 while (in.readLine() == null) {
                     myResponse = in.readLine();
                 }
@@ -98,12 +98,13 @@ public class StartGameActivity extends AppCompatActivity {
                 }
             }
 
+            // return server's response as result
             return myResponse;
         }
 
         @Override
-        protected void onPostExecute(String input)
-        {
+        protected void onPostExecute(String input) {
+            super.onPostExecute(input);
             // create an Intent that is the result of the DownloadActivity
             Intent result = new Intent().putExtra("response", input);
 

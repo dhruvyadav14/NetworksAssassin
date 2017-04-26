@@ -55,18 +55,19 @@ public class ContinueGameActivity extends AppCompatActivity {
         // Cache the EditText that holds the player's name
         mPlayerName = (EditText) findViewById(R.id.playerName);
 
+        // Cache the RadioGroup that holds the player's mission
         continueButtons = (RadioGroup) findViewById(R.id.continueButtons);
 
         // Initialize the start button
         Button submitButton = (Button) findViewById(R.id.statusButton);
 
-        // set OnClickListener to download image
-        // from URL via ImageIntentService
+        // set OnClickListener to update request code before sending command
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 int selectedId = continueButtons.getCheckedRadioButtonId();
 
+                // set request code
                 if(selectedId == R.id.targetButton)
                     mRequestCode = TARGET_REQUEST;
                 else if(selectedId == R.id.deathButton)
@@ -78,32 +79,36 @@ public class ContinueGameActivity extends AppCompatActivity {
     }
 
     /**
-     * Extends AsyncTask, downloads image in the background, creates an
-     * Intent that contains the path to the image file, and then sets this as
-     * the result of the Activity.
+     * Extends AsyncTask, sends command to server, awaits and receives a
+     * response, and then sets this as the result of the Activity.
      */
     private class ContinueGameTask extends AsyncTask<Void, Void, String> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            // set command string
             myCommand = mRequestCode + "; " + mGameID + "; " + mPlayerName;
         }
 
         @Override
         protected String doInBackground(Void... input) {
+            // instantiate socket, reader, and writer
             Socket s = null;
             BufferedReader in = null;
             PrintWriter out = null;
 
             try {
+                // connect to server with host name and IP
                 host = InetAddress.getByName("172.31.21.180");
                 s = new Socket(host, 8888);
 
                 out = new PrintWriter(s.getOutputStream(), true);
                 in = new BufferedReader(new InputStreamReader(s.getInputStream()));
 
+                // send the command to the server
                 out.write(myCommand);
 
+                // wait until the server sends a response
                 while (in.readLine() == null) {
                     myResponse = in.readLine();
                 }
@@ -123,6 +128,7 @@ public class ContinueGameActivity extends AppCompatActivity {
                 }
             }
 
+            // return server's response as result
             return myResponse;
         }
 

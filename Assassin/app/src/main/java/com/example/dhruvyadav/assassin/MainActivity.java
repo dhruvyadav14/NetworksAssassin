@@ -1,21 +1,15 @@
 package com.example.dhruvyadav.assassin;
 
 import android.content.Intent;
-import android.os.Message;
-import android.os.Messenger;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.net.*;
-import java.io.*;
-
 public class MainActivity extends AppCompatActivity {
 
-    /* Values that identify the requests to start or continue a game.
-     */
+    // Values that identify the requests to start or continue a game
     private static final int START_REQUEST = 1;
     private static final int CONTINUE_REQUEST = 2;
 
@@ -24,8 +18,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // initialize the start button
         Button startButton = (Button) findViewById(R.id.startButton);
 
+        // set OnClickListener to start game if clicked
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -33,11 +29,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Initialize the 'Download Thread' Button
+        // Initialize the continue button
         Button continueButton = (Button) findViewById(R.id.continueButton);
 
-        // set OnClickListener to download image
-        // from URL via a DownloadImageHandler
+        // set OnClickListener to continue game if clicked
         continueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -50,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         // Create Intent to start StartGameActivity
         Intent startGameIntent = new Intent(MainActivity.this, StartGameActivity.class);
 
-        // start DownloadActivity using downloadImageIntent
+        // start startGameActivity using startGameIntent
         startActivityForResult(startGameIntent, START_REQUEST);
     }
 
@@ -58,22 +53,16 @@ public class MainActivity extends AppCompatActivity {
         // Create Intent to start ContinueGameActivity
         Intent continueGameIntent = new Intent(MainActivity.this, ContinueGameActivity.class);
 
-        // start DownloadActivity using downloadImageIntent
+        // start continueGameActivity using continueGameIntent
         startActivityForResult(continueGameIntent, CONTINUE_REQUEST);
     }
 
-    /**
-     * Hook method called back by the Android Activity framework when
-     * an Activity that's been launched exits, giving the requestCode
-     * it was started with, the resultCode it returned, and any
-     * additional data from it.
-     */
-    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         setContentView(R.layout.activity_main);
         if (resultCode == RESULT_OK && ((requestCode == START_REQUEST) || (requestCode == CONTINUE_REQUEST))) {
             TextView response = (TextView) findViewById(R.id.response);
 
+            // set status message to the server's response string
             response.setText(data.getStringExtra("response"));
         }
     }
