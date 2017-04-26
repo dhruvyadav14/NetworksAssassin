@@ -1,5 +1,3 @@
-package dns;
-
 import java.net.*;
 import java.io.*;
 import java.util.*;
@@ -125,7 +123,7 @@ public class Server {
 					}
 				}
 			}
-			out.println(response);
+			out.write(response);
 		}
 	}
 }

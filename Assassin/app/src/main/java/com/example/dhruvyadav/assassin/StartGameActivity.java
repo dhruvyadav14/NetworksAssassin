@@ -62,7 +62,7 @@ public class StartGameActivity extends AppCompatActivity {
      * Intent that contains the path to the image file, and then sets this as
      * the result of the Activity.
      */
-    private class StartGameTask extends AsyncTask<String, Void, String> {
+    private class StartGameTask extends AsyncTask<Void, Void, String> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -70,7 +70,7 @@ public class StartGameActivity extends AppCompatActivity {
         }
 
         @Override
-        protected String doInBackground(String... input) {
+        protected String doInBackground(Void... input) {
             Socket s = null;
             BufferedReader in = null;
             PrintWriter out = null;
@@ -109,7 +109,6 @@ public class StartGameActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String input)
         {
-            super.onPostExecute(input);
             // create an Intent that is the result of the DownloadActivity
             Intent result = new Intent().putExtra("response", input);
 
