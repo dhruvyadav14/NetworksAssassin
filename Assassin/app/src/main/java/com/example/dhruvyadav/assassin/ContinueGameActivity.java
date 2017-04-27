@@ -1,9 +1,9 @@
 package com.example.dhruvyadav.assassin;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,15 +17,11 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-/**
- * Created by lukea on 4/25/2017.
- */
-
-public class ContinueGameActivity extends AppCompatActivity {
+public class ContinueGameActivity extends Activity {
 
     // port and host IP address
-    private static final int port = 8888;
-    private InetAddress host = null;
+    private static final int port = 1234;
+    private static final String host = "172.31.21.180";
 
     // Private data fields
     private EditText mGameID;
@@ -49,17 +45,10 @@ public class ContinueGameActivity extends AppCompatActivity {
 
         setContentView(R.layout.continuegame);
 
-        // Cache the EditText that holds the game ID
-        mGameID = (EditText) findViewById(R.id.gameID);
-
-        // Cache the EditText that holds the player's name
-        mPlayerName = (EditText) findViewById(R.id.playerName);
-
-        // Cache the RadioGroup that holds the player's mission
         continueButtons = (RadioGroup) findViewById(R.id.continueButtons);
 
         // Initialize the start button
-        Button submitButton = (Button) findViewById(R.id.statusButton);
+        Button submitButton = (Button) findViewById(R.id.submit2);
 
         // set OnClickListener to update request code before sending command
         submitButton.setOnClickListener(new View.OnClickListener() {
@@ -68,11 +57,19 @@ public class ContinueGameActivity extends AppCompatActivity {
                 int selectedId = continueButtons.getCheckedRadioButtonId();
 
                 // set request code
-                if(selectedId == R.id.targetButton)
+                if (selectedId == R.id.targetButton)
                     mRequestCode = TARGET_REQUEST;
-                else if(selectedId == R.id.deathButton)
+                else if (selectedId == R.id.deathButton)
                     mRequestCode = DEATH_REQUEST;
 
+                // Cache the EditText that holds the game ID
+                mGameID = (EditText) findViewById(R.id.gameID2);
+
+                // Cache the EditText that holds the player's name
+                mPlayerName = (EditText) findViewById(R.id.playerName);
+
+                System.out.println("Creating AsyncTask");
+                // Create AsyncTask to continue game
                 new ContinueGameTask();
             }
         });
@@ -85,32 +82,31 @@ public class ContinueGameActivity extends AppCompatActivity {
     private class ContinueGameTask extends AsyncTask<Void, Void, String> {
         @Override
         protected void onPreExecute() {
-            super.onPreExecute();
-            // set command string
             myCommand = mRequestCode + "; " + mGameID + "; " + mPlayerName;
         }
 
         @Override
         protected String doInBackground(Void... input) {
-            // instantiate socket, reader, and writer
             Socket s = null;
-            BufferedReader in = null;
-            PrintWriter out = null;
+            BufferedReader in;
+            PrintWriter out;
 
             try {
-                // connect to server with host name and IP
-                host = InetAddress.getByName("172.31.21.180");
-                s = new Socket(host, 8888);
+                s = new Socket(host, port);
+
+                System.out.println("Socket created");
 
                 out = new PrintWriter(s.getOutputStream(), true);
                 in = new BufferedReader(new InputStreamReader(s.getInputStream()));
 
-                // send the command to the server
                 out.write(myCommand);
+                out.flush();
 
-                // wait until the server sends a response
+                System.out.println("Command sent: " + myCommand);
+
                 while (in.readLine() == null) {
                     myResponse = in.readLine();
+                    System.out.println("Response received: " + myResponse);
                 }
 
             } catch (UnknownHostException e) {
@@ -128,13 +124,11 @@ public class ContinueGameActivity extends AppCompatActivity {
                 }
             }
 
-            // return server's response as result
             return myResponse;
         }
 
         @Override
         protected void onPostExecute(String input) {
-            super.onPostExecute(input);
             // create an Intent that is the result of the DownloadActivity
             Intent result = new Intent().putExtra("response", input);
 

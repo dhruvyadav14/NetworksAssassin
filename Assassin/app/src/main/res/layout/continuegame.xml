@@ -8,47 +8,48 @@
     tools:context="com.example.dhruvyadav.assassin.MainActivity">
 
     <TextView
-        android:id="@+id/secondq"
+        android:id="@+id/Q2_2"
         android:layout_width="370dp"
         android:layout_height="24dp"
-        android:text="Enter game ID, player's name, and mission."
-        tools:layout_constraintTop_creator="1"
-        tools:layout_constraintRight_creator="1"
-        app:layout_constraintRight_toRightOf="parent"
         android:layout_marginTop="71dp"
-        tools:layout_constraintLeft_creator="1"
+        android:text="Enter game ID, player's name, and mission."
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintTop_creator="1" />
 
     <EditText
-        android:id="@+id/gameID"
+        android:id="@+id/gameID2"
         android:layout_width="365dp"
         android:layout_height="43dp"
-        android:ems="10"
-        android:inputType="text"
-        android:text="Game ID"
-        tools:layout_constraintTop_creator="1"
-        tools:layout_constraintRight_creator="1"
-        app:layout_constraintRight_toRightOf="parent"
         android:layout_marginTop="9dp"
-        app:layout_constraintTop_toBottomOf="@+id/secondq"
+        android:ems="10"
+        android:hint="Game ID"
+        android:inputType="text"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Q2_2"
         tools:layout_constraintLeft_creator="1"
-        app:layout_constraintLeft_toLeftOf="parent" />
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintTop_creator="1"
+        app:layout_constraintHorizontal_bias="0.526" />
 
     <EditText
         android:id="@+id/playerName"
         android:layout_width="365dp"
         android:layout_height="43dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Player's name"
-        tools:layout_constraintTop_creator="1"
-        tools:layout_constraintRight_creator="1"
-        app:layout_constraintRight_toRightOf="parent"
         android:layout_marginTop="7dp"
-        app:layout_constraintTop_toBottomOf="@+id/gameID"
+        android:ems="10"
+        android:hint="Player's name"
+        android:inputType="textPersonName"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gameID2"
         tools:layout_constraintLeft_creator="1"
-        app:layout_constraintLeft_toLeftOf="parent" />
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintTop_creator="1" />
 
     <RadioGroup
         android:id="@+id/continueButtons"
@@ -83,26 +84,23 @@
             tools:layout_constraintBottom_creator="1"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginEnd="25dp"
-            app:layout_constraintRight_toRightOf="@+id/statusButton"
+            app:layout_constraintRight_toRightOf="@+id/submit2"
             android:layout_marginBottom="172dp"
             android:layout_marginRight="22dp" />
 
     </RadioGroup>
 
     <Button
-        android:id="@+id/startButton"
+        android:id="@+id/submit2"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:text="Submit"
-        tools:layout_constraintTop_creator="1"
-        tools:layout_constraintRight_creator="1"
-        app:layout_constraintRight_toRightOf="parent"
         android:layout_marginTop="120dp"
+        android:text="Submit"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/playerName"
         tools:layout_constraintLeft_creator="1"
-        app:layout_constraintLeft_toLeftOf="parent" />
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintTop_creator="1" />
 
 </android.support.constraint.ConstraintLayout>
-    <?xml version="1.0" encoding="utf-8"?>
-
-<?xml version="1.0" encoding="utf-8"?>

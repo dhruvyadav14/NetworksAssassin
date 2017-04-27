@@ -5,44 +5,49 @@ import java.util.Map.Entry;
 
 public class Server {
 
-	private final static int port = 8888;
+	private final static int port = 1234;
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) {
 
 		HashMap<String, HashMap<String, String>> games = new HashMap<String, HashMap<String, String>>(20);
 		String message = null;
 		String response = null;
-
+		
 		while (true) {
 			// establish connection
 			ServerSocket serverSocket = null;
 			Socket clientSocket = null;
-			
+
 			PrintWriter out = null;
 			BufferedReader in = null;
-			
+
 			try {
 				serverSocket = new ServerSocket(port);
 				clientSocket = serverSocket.accept();
+				System.out.println("Client IP: " + clientSocket.getInetAddress());
+				
 				out = new PrintWriter(clientSocket.getOutputStream(), true);
 				in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 
 				// Read message from server
-				// Format: "command; game ID; playerID/(playerID1, playerID2...)"
+				// Format: "command; game ID; playerID/(playerID1,
+				// playerID2...)"
 				message = in.readLine();
+				System.out.println("Command received: " + message);
 
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 
-			// "0" (start new game), "1" (continue - get target), or "2" (continue - report death)
-			String command = message.substring(0, message.indexOf(";"));
+			// "0" (start new game), "1" (continue - get target), or "2"
+			// (continue - report death)
+			String command = message.substring(0, message.indexOf(';'));
 			// parse message to "game ID; playerID/playerList"
-			message = message.substring(message.indexOf(";") + 2);
+			message = message.substring(message.indexOf(';') + 2);
 			// game ID
-			String gameID = message.substring(0, message.indexOf(";"));
+			String gameID = message.substring(0, message.indexOf(';'));
 			// parse message to "playerID/playerList"
-			message = message.substring(message.indexOf(";") + 2);
+			message = message.substring(message.indexOf(';') + 2);
 
 			// create a new game
 			if (command.equals("0")) {
@@ -51,7 +56,7 @@ public class Server {
 				else {
 					// split player list into array for this game
 					String[] players = message.split(", ");
-					
+
 					// randomize array for this game
 					Random r = new Random();
 					for (int i = 0; i < players.length; i++) {
@@ -60,14 +65,14 @@ public class Server {
 						players[i] = players[random];
 						players[random] = temp;
 					}
-					
+
 					// put array for this game into HashMap
 					HashMap<String, String> tmp = new HashMap<String, String>(players.length);
 					for (int i = 0; i < players.length; i++) {
 						// for last entry, set target to first entry
 						if (i == players.length - 1)
 							tmp.put(players[players.length - 1], players[0]);
-						
+
 						// otherwise, set target to following entry
 						else
 							tmp.put(players[i], players[i + 1]);
@@ -84,7 +89,7 @@ public class Server {
 				// check if this game exists
 				if (!games.containsKey(gameID)) {
 					response = "No game exists with this ID. Please try again.";
-				// game exists
+					// game exists
 				} else {
 					// get HashMap for this game
 					HashMap<String, String> tmp = games.get(gameID);
@@ -107,19 +112,19 @@ public class Server {
 							// find killer in HashMap
 							String killer = null;
 							for (Entry<String, String> entry : tmp.entrySet()) {
-					            if (entry.getValue().equals(message)) {
-					                killer = entry.getKey();
-					            }
-					        }
+								if (entry.getValue().equals(message)) {
+									killer = entry.getKey();
+								}
+							}
 							// replace killer's target with player's target
 							tmp.replace(killer, tmp.get(message));
 							// remove player from HashMap
 							tmp.remove(message);
 							// update saved game data
 							games.replace(gameID, tmp);
-							
+
 							response = "Thanks for playing.";
-					    }
+						}
 					}
 				}
 			}

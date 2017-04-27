@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
 
         // initialize the start button
@@ -25,7 +26,11 @@ public class MainActivity extends AppCompatActivity {
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startGame(view);
+                // Create Intent to start StartGameActivity
+                Intent startGameIntent = new Intent(MainActivity.this, StartGameActivity.class);
+
+                // start startGameActivity using startGameIntent
+                startActivityForResult(startGameIntent, START_REQUEST);
             }
         });
 
@@ -36,34 +41,24 @@ public class MainActivity extends AppCompatActivity {
         continueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                continueGame(view);
+                // Create Intent to start ContinueGameActivity
+                Intent continueGameIntent = new Intent(MainActivity.this, ContinueGameActivity.class);
+
+                // start continueGameActivity using continueGameIntent
+                startActivityForResult(continueGameIntent, CONTINUE_REQUEST);
             }
         });
     }
 
-    public void startGame(View view) {
-        // Create Intent to start StartGameActivity
-        Intent startGameIntent = new Intent(MainActivity.this, StartGameActivity.class);
-
-        // start startGameActivity using startGameIntent
-        startActivityForResult(startGameIntent, START_REQUEST);
-    }
-
-    public void continueGame(View view) {
-        // Create Intent to start ContinueGameActivity
-        Intent continueGameIntent = new Intent(MainActivity.this, ContinueGameActivity.class);
-
-        // start continueGameActivity using continueGameIntent
-        startActivityForResult(continueGameIntent, CONTINUE_REQUEST);
-    }
-
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        setContentView(R.layout.activity_main);
-        if (resultCode == RESULT_OK && ((requestCode == START_REQUEST) || (requestCode == CONTINUE_REQUEST))) {
-            TextView response = (TextView) findViewById(R.id.response);
+        if(requestCode == START_REQUEST || requestCode == CONTINUE_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                TextView response = (TextView) findViewById(R.id.response);
 
-            // set status message to the server's response string
-            response.setText(data.getStringExtra("response"));
+                // set status message to the server's response string
+                response.setText(data.getStringExtra("response"));
+            }
         }
+        setContentView(R.layout.activity_main);
     }
 }

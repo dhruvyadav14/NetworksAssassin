@@ -8,11 +8,10 @@
     tools:context="com.example.dhruvyadav.assassin.MainActivity">
 
     <TextView
-        android:id="@+id/secondq"
+        android:id="@+id/Q2_1"
         android:layout_width="370dp"
         android:layout_height="24dp"
-        android:text="Enter game ID and players' names, separated by commas.
-        \n(Player's names must be unique)"
+        android:text="Enter game ID and players' names, separated by commas."
         tools:layout_constraintTop_creator="1"
         tools:layout_constraintRight_creator="1"
         app:layout_constraintRight_toRightOf="parent"
@@ -22,47 +21,46 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/gameID"
+        android:id="@+id/gameID1"
         android:layout_width="365dp"
         android:layout_height="43dp"
-        android:ems="10"
-        android:inputType="text"
-        android:text="Game ID"
-        tools:layout_constraintTop_creator="1"
-        tools:layout_constraintRight_creator="1"
-        app:layout_constraintRight_toRightOf="parent"
         android:layout_marginTop="9dp"
-        app:layout_constraintTop_toBottomOf="@+id/secondq"
+        android:ems="10"
+        android:hint="Game ID"
+        android:inputType="text"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Q2_1"
         tools:layout_constraintLeft_creator="1"
-        app:layout_constraintLeft_toLeftOf="parent" />
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintTop_creator="1" />
 
     <EditText
         android:id="@+id/playerNames"
         android:layout_width="365dp"
-        android:layout_height="43dp"
-        android:ems="10"
-        android:inputType="textMultiLine"
-        android:text="Player's names"
-        tools:layout_constraintTop_creator="1"
-        tools:layout_constraintRight_creator="1"
-        app:layout_constraintRight_toRightOf="parent"
+        android:layout_height="129dp"
         android:layout_marginTop="7dp"
-        app:layout_constraintTop_toBottomOf="@+id/gameID"
+        android:ems="10"
+        android:hint="Player's names"
+        android:inputType="textMultiLine"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gameID1"
         tools:layout_constraintLeft_creator="1"
-        app:layout_constraintLeft_toLeftOf="parent" />
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintTop_creator="1" />
 
     <Button
-        android:id="@+id/startButton"
+        android:id="@+id/submit1"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="34dp"
         android:text="Submit"
-        tools:layout_constraintTop_creator="1"
-        tools:layout_constraintRight_creator="1"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="120dp"
         app:layout_constraintTop_toBottomOf="@+id/playerNames"
         tools:layout_constraintLeft_creator="1"
-        app:layout_constraintLeft_toLeftOf="parent" />
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintTop_creator="1" />
 
 </android.support.constraint.ConstraintLayout>
-    <?xml version="1.0" encoding="utf-8"?>
