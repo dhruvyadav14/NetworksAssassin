@@ -20,8 +20,8 @@ import java.net.UnknownHostException;
 public class ContinueGameActivity extends Activity {
 
     // port and host IP address
-    private static final int port = 1234;
-    private static final String host = "172.31.21.180";
+    private static final int port = 8888;
+    private static final String host = "34.208.54.66";
 
     // Private data fields
     private EditText mGameID;
@@ -70,7 +70,7 @@ public class ContinueGameActivity extends Activity {
 
                 System.out.println("Creating AsyncTask");
                 // Create AsyncTask to continue game
-                new ContinueGameTask();
+                new ContinueGameTask().execute();
             }
         });
     }
@@ -82,7 +82,7 @@ public class ContinueGameActivity extends Activity {
     private class ContinueGameTask extends AsyncTask<Void, Void, String> {
         @Override
         protected void onPreExecute() {
-            myCommand = mRequestCode + "; " + mGameID + "; " + mPlayerName;
+            myCommand = mRequestCode + "; " + mGameID.getText() + "; " + mPlayerName.getText();
         }
 
         @Override
@@ -104,10 +104,9 @@ public class ContinueGameActivity extends Activity {
 
                 System.out.println("Command sent: " + myCommand);
 
-                while (in.readLine() == null) {
-                    myResponse = in.readLine();
-                    System.out.println("Response received: " + myResponse);
-                }
+                myResponse = in.readLine();
+
+                System.out.println("Response received: " + myResponse);
 
             } catch (UnknownHostException e) {
                 System.out.println("Host not found");

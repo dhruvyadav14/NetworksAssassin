@@ -13,8 +13,8 @@ import java.net.*;
 public class StartGameActivity extends Activity {
 
     // port and host IP address
-    private static final int port = 1234;
-    private static final String host = "172.31.21.180";
+    private static final int port = 8888;
+    private static final String host = "34.208.54.66";
 
     // private data fields
     private EditText mGameID;
@@ -38,6 +38,7 @@ public class StartGameActivity extends Activity {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                System.out.println("Clicked");
                 // Cache the EditText that holds the game ID
                 mGameID = (EditText) findViewById(R.id.gameID1);
 
@@ -46,7 +47,7 @@ public class StartGameActivity extends Activity {
 
                 System.out.println("Creating AsyncTask");
                 // Create AsyncTask to start game
-                new StartGameTask();
+                new StartGameTask().execute();
             }
         });
     }
@@ -59,9 +60,8 @@ public class StartGameActivity extends Activity {
     private class StartGameTask extends AsyncTask<Void, Void, String> {
         @Override
         protected void onPreExecute() {
-            super.onPreExecute();
             // set command string
-            myCommand = "0; " + mGameID + "; " + mPlayerNames;
+            myCommand = "0; " + mGameID.getText() + "; " + mPlayerNames.getText();
         }
 
         @Override
@@ -80,21 +80,17 @@ public class StartGameActivity extends Activity {
 
                 // send the command to the server
                 out.write(myCommand);
+                out.flush();
 
                 System.out.println("Command sent: " + myCommand);
 
-                // wait until the server sends a response
-                while (in.readLine() == null) {
-                    myResponse = in.readLine();
+                myResponse = in.readLine();
 
-                    System.out.println("Response received: " + myResponse);
-                }
+                System.out.println("Response received: " + myResponse);
 
             } catch (UnknownHostException e) {
-                System.out.println("Host not found");
                 myResponse = "Host not found";
             } catch (IOException e) {
-                System.out.println("I/O error: " + e.getMessage());
                 myResponse = "I/O error";
             }
 

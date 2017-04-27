@@ -5,27 +5,33 @@ import java.util.Map.Entry;
 
 public class Server {
 
-	private final static int port = 1234;
+	private final static int port = 8888;
 
 	public static void main(String[] args) {
 
 		HashMap<String, HashMap<String, String>> games = new HashMap<String, HashMap<String, String>>(20);
 		String message = null;
 		String response = null;
-		
+
+		ServerSocket serverSocket = null;
+
+		try {
+			serverSocket = new ServerSocket(port);
+		} catch (IOException e) {
+			System.out.println("I/O error: " + e.getMessage());
+		}
+
+		Socket clientSocket = null;
+
+		PrintWriter out = null;
+		BufferedReader in = null;
+
 		while (true) {
-			// establish connection
-			ServerSocket serverSocket = null;
-			Socket clientSocket = null;
-
-			PrintWriter out = null;
-			BufferedReader in = null;
-
+			System.out.println("Ready");
 			try {
-				serverSocket = new ServerSocket(port);
 				clientSocket = serverSocket.accept();
 				System.out.println("Client IP: " + clientSocket.getInetAddress());
-				
+
 				out = new PrintWriter(clientSocket.getOutputStream(), true);
 				in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 
@@ -36,16 +42,19 @@ public class Server {
 				System.out.println("Command received: " + message);
 
 			} catch (IOException e) {
-				e.printStackTrace();
+				System.out.println("I/O error: " + e.getMessage());
 			}
 
 			// "0" (start new game), "1" (continue - get target), or "2"
 			// (continue - report death)
 			String command = message.substring(0, message.indexOf(';'));
+
 			// parse message to "game ID; playerID/playerList"
 			message = message.substring(message.indexOf(';') + 2);
+
 			// game ID
 			String gameID = message.substring(0, message.indexOf(';'));
+
 			// parse message to "playerID/playerList"
 			message = message.substring(message.indexOf(';') + 2);
 
@@ -102,9 +111,10 @@ public class Server {
 						// get player's target
 						if (command.equals("1")) {
 							// check if no targets remain
-							if (tmp.size() == 1)
+							if (tmp.size() == 1) {
 								response = "Congratulations! You are the winner.";
-							else
+								games.remove(gameID);
+							} else
 								response = "Your target is: " + tmp.get(message);
 						}
 						// remove player from game
@@ -128,7 +138,18 @@ public class Server {
 					}
 				}
 			}
+			
 			out.write(response);
+			System.out.println("Response sent: " + response);
+			
+			// Make sure socket is closed
+			if (clientSocket != null && !clientSocket.isClosed()) {
+				try {
+					clientSocket.close();
+				} catch (IOException e) {
+					System.out.println("I/O error: " + e.getMessage());
+				}
+			}
 		}
 	}
 }
