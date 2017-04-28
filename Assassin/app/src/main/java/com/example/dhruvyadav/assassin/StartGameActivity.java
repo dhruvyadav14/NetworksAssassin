@@ -78,11 +78,23 @@ public class StartGameActivity extends Activity {
                 PrintWriter out = new PrintWriter(s.getOutputStream(), true);
                 BufferedReader in = new BufferedReader(new InputStreamReader(s.getInputStream()));
 
+                /*
+                String line = "";
+
+                while(!line.equals("test")) {
+                    line = in.readLine();
+                    System.out.println(line);
+                }
+                out.write("test");
+                */
+
                 // send the command to the server
                 out.write(myCommand);
                 out.flush();
 
                 System.out.println("Command sent: " + myCommand);
+
+                System.out.println("Awaiting response...");
 
                 myResponse = in.readLine();
 

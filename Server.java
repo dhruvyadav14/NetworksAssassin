@@ -138,7 +138,7 @@ public class Server {
 					}
 				}
 			}
-			
+			System.out.println("Sending response...");
 			out.write(response);
 			System.out.println("Response sent: " + response);
 			
