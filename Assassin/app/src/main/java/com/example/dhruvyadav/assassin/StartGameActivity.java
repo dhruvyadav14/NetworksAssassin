@@ -86,8 +86,6 @@ public class StartGameActivity extends Activity {
 
                 System.out.println("Awaiting response...");
 
-                myResponse = "Test";
-
                 myResponse = in.readLine();
 
                 System.out.println("Response received: " + myResponse);
@@ -102,6 +100,7 @@ public class StartGameActivity extends Activity {
             if (s != null && !s.isClosed()) {
                 try {
                     s.close();
+                    System.out.println("Socket closed");
                 } catch (IOException e) {
                     System.out.println("I/O error: " + e.getMessage());
                     myResponse = "I/O error";
