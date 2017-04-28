@@ -44,6 +44,7 @@ public class ContinueGameActivity extends Activity {
 
         setContentView(R.layout.continuegame);
 
+        // Initialize the continue Buttons
         continueButtons = (RadioGroup) findViewById(R.id.continueButtons);
 
         // Initialize the start button

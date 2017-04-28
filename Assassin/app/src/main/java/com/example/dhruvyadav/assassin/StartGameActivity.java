@@ -30,8 +30,6 @@ public class StartGameActivity extends Activity {
 
         setContentView(R.layout.startgame);
 
-        System.out.println("Activity started");
-
         // Initialize the start button
         Button submitButton = (Button) findViewById(R.id.submit1);
 
