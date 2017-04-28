@@ -32,13 +32,15 @@ public class Server {
 				clientSocket = serverSocket.accept();
 				System.out.println("Client IP: " + clientSocket.getInetAddress());
 
-				out = new PrintWriter(clientSocket.getOutputStream(), true);
 				in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+				out = new PrintWriter(clientSocket.getOutputStream(), true);
 
 				// Read message from server
 				// Format: "command; game ID; playerID/(playerID1,
 				// playerID2...)"
 				message = in.readLine();
+				in.close();
+				
 				System.out.println("Command received: " + message);
 
 			} catch (IOException e) {
@@ -139,7 +141,11 @@ public class Server {
 				}
 			}
 			System.out.println("Sending response...");
-			out.write(response);
+			
+			out.println(response);
+			out.flush();
+			out.close();
+			
 			System.out.println("Response sent: " + response);
 			
 			// Make sure socket is closed

@@ -53,12 +53,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(requestCode == START_REQUEST || requestCode == CONTINUE_REQUEST) {
             if (resultCode == RESULT_OK) {
+                setContentView(R.layout.activity_main);
+
                 TextView response = (TextView) findViewById(R.id.response);
 
                 // set status message to the server's response string
                 response.setText(data.getStringExtra("response"));
             }
         }
-        setContentView(R.layout.activity_main);
     }
 }

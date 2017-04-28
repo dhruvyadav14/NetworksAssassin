@@ -91,12 +91,19 @@ public class StartGameActivity extends Activity {
                 // send the command to the server
                 out.write(myCommand);
                 out.flush();
+                out.close();
 
                 System.out.println("Command sent: " + myCommand);
 
                 System.out.println("Awaiting response...");
 
-                myResponse = in.readLine();
+                myResponse = "Nada";
+
+                if(in.ready()) {
+                    myResponse = in.readLine();
+                }
+
+                in.close();
 
                 System.out.println("Response received: " + myResponse);
 
@@ -123,7 +130,7 @@ public class StartGameActivity extends Activity {
         @Override
         protected void onPostExecute(String input) {
             // create an Intent that is the result of the DownloadActivity
-            Intent result = new Intent().putExtra("response", input);
+            Intent result = new Intent().putExtra("response", myResponse);
 
             // Set Intent to be the result
             setResult(RESULT_OK, result);
