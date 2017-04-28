@@ -61,7 +61,7 @@ public class StartGameActivity extends Activity {
         @Override
         protected void onPreExecute() {
             // set command string
-            myCommand = "0; " + mGameID.getText() + "; " + mPlayerNames.getText();
+            myCommand = "0; " + mGameID.getText() + "; " + mPlayerNames.getText() + "\n";
         }
 
         @Override
@@ -78,32 +78,17 @@ public class StartGameActivity extends Activity {
                 PrintWriter out = new PrintWriter(s.getOutputStream(), true);
                 BufferedReader in = new BufferedReader(new InputStreamReader(s.getInputStream()));
 
-                /*
-                String line = "";
-
-                while(!line.equals("test")) {
-                    line = in.readLine();
-                    System.out.println(line);
-                }
-                out.write("test");
-                */
-
                 // send the command to the server
                 out.write(myCommand);
                 out.flush();
-                out.close();
 
                 System.out.println("Command sent: " + myCommand);
 
                 System.out.println("Awaiting response...");
 
-                myResponse = "Nada";
+                myResponse = "Test";
 
-                if(in.ready()) {
-                    myResponse = in.readLine();
-                }
-
-                in.close();
+                myResponse = in.readLine();
 
                 System.out.println("Response received: " + myResponse);
 

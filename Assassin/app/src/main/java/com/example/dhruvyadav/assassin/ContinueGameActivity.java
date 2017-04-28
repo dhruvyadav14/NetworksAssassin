@@ -82,36 +82,41 @@ public class ContinueGameActivity extends Activity {
     private class ContinueGameTask extends AsyncTask<Void, Void, String> {
         @Override
         protected void onPreExecute() {
-            myCommand = mRequestCode + "; " + mGameID.getText() + "; " + mPlayerName.getText();
+            myCommand = mRequestCode + "; " + mGameID.getText() + "; " + mPlayerName.getText() + "\n";
         }
 
         @Override
         protected String doInBackground(Void... input) {
+            // instantiate socket, reader, and writer
             Socket s = null;
-            BufferedReader in;
-            PrintWriter out;
 
             try {
+                // connect to server with host name and IP
                 s = new Socket(host, port);
 
                 System.out.println("Socket created");
 
-                out = new PrintWriter(s.getOutputStream(), true);
-                in = new BufferedReader(new InputStreamReader(s.getInputStream()));
+                PrintWriter out = new PrintWriter(s.getOutputStream(), true);
+                BufferedReader in = new BufferedReader(new InputStreamReader(s.getInputStream()));
 
+                // send the command to the server
                 out.write(myCommand);
                 out.flush();
 
                 System.out.println("Command sent: " + myCommand);
+
+                System.out.println("Awaiting response...");
+
+                myResponse = "Test";
 
                 myResponse = in.readLine();
 
                 System.out.println("Response received: " + myResponse);
 
             } catch (UnknownHostException e) {
-                System.out.println("Host not found");
+                myResponse = "Host not found";
             } catch (IOException e) {
-                System.out.println("I/O error: " + e.getMessage());
+                myResponse = "I/O error";
             }
 
             // Make sure socket is closed
@@ -120,16 +125,18 @@ public class ContinueGameActivity extends Activity {
                     s.close();
                 } catch (IOException e) {
                     System.out.println("I/O error: " + e.getMessage());
+                    myResponse = "I/O error";
                 }
             }
 
+            // return server's response as result
             return myResponse;
         }
 
         @Override
         protected void onPostExecute(String input) {
             // create an Intent that is the result of the DownloadActivity
-            Intent result = new Intent().putExtra("response", input);
+            Intent result = new Intent().putExtra("response", myResponse);
 
             // Set Intent to be the result
             setResult(RESULT_OK, result);

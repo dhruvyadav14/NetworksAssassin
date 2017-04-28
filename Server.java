@@ -39,7 +39,6 @@ public class Server {
 				// Format: "command; game ID; playerID/(playerID1,
 				// playerID2...)"
 				message = in.readLine();
-				in.close();
 				
 				System.out.println("Command received: " + message);
 
@@ -142,11 +141,10 @@ public class Server {
 			}
 			System.out.println("Sending response...");
 			
-			out.println(response);
+			out.write(response + "\n");
 			out.flush();
-			out.close();
 			
-			System.out.println("Response sent: " + response);
+			System.out.println("Response sent: " + response );
 			
 			// Make sure socket is closed
 			if (clientSocket != null && !clientSocket.isClosed()) {
