@@ -120,21 +120,25 @@ public class Server {
 						}
 						// remove player from game
 						else if (command.equals("2")) {
-							// find killer in HashMap
-							String killer = null;
-							for (Entry<String, String> entry : tmp.entrySet()) {
-								if (entry.getValue().equals(message)) {
-									killer = entry.getKey();
+							if(tmp.size() == 1) {
+								response = "Invalid: You are the last remaining player.";
+							} else {
+								// find killer in HashMap
+								String killer = null;
+								for (Entry<String, String> entry : tmp.entrySet()) {
+									if (entry.getValue().equals(message)) {
+										killer = entry.getKey();
+									}
 								}
-							}
-							// replace killer's target with player's target
-							tmp.replace(killer, tmp.get(message));
-							// remove player from HashMap
-							tmp.remove(message);
-							// update saved game data
-							games.replace(gameID, tmp);
+								// replace killer's target with player's target
+								tmp.replace(killer, tmp.get(message));
+								// remove player from HashMap
+								tmp.remove(message);
+								// update saved game data
+								games.replace(gameID, tmp);
 
-							response = "Thanks for playing.";
+								response = "Thanks for playing.";
+							}
 						}
 					}
 				}
